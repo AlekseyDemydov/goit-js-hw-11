@@ -20,22 +20,23 @@ btnMore.classList.add('is-hidden');
 
 function onSearchForm(e) {
   e.preventDefault();
-  //   window.scrollTo({ top: 0 });
   page = 1;
   query = e.currentTarget.searchQuery.value.trim();
   gallery.innerHTML = '';
 
   if (query === '') {
     alertNoEmptySearch();
+    btnMore.classList.add('is-hidden');
     return;
   }
-
+  // console.log('searchStart');
   fetchImages(query, page, perPage)
     .then(({ data }) => {
       if (data.totalHits === 0) {
         alertNoImagesFound();
       } else {
         getGallery(data.hits);
+
         simpleLightBox = new SimpleLightbox('.gallery a').refresh();
         alertImagesFound(data);
 
@@ -61,7 +62,13 @@ function onLoadMoreBtn() {
 
       const totalPages = Math.ceil(data.totalHits / perPage);
 
-      if (page > totalPages) {
+      // console.log(page);
+      // console.log(data.hits);
+      // console.log(data.totalHits);
+      // console.log(perPage);
+      // console.log(totalPages); //10
+
+      if (page === totalPages) {
         btnMore.classList.add('is-hidden');
         alertEndOfSearch();
       }
