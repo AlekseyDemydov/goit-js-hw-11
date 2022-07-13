@@ -39,6 +39,8 @@
    margin-right: 10px;
    justify-content: space-evenly;
 text-decoration: none;
+box-shadow: 10px 5px 5px aqua;
+margin: 10px;
 }
 .gallery-item__img{
     display: block;
